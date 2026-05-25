@@ -1,45 +1,27 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import logo from '../assets/logo.png'
+import { navLinks } from '../data/siteData'
 
 const Navbar = () => {
   const location = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const links = [
-    { label: 'Home',      path: '/' },
-    { label: 'Portfolio', path: '/portfolio' },
-    { label: 'Services',  path: '/services' },
-    { label: 'About',     path: '/about' },
-    { label: 'Reviews',   path: '/reviews' },
-  ]
-
   return (
-    <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#F2EDE6]/95 backdrop-blur-md border-b border-[#D9CFC4]">
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-16 md:h-20 flex items-center justify-between gap-4">
-
-          {/* Logo */}
-          <Link to="/" className="shrink-0 flex items-center">
-            <img
-              src={logo}
-              alt="Castorea"
-              className="block"
-              style={{ width: 'clamp(4.5rem, 7vw, 6.5rem)', height: 'auto' }}
-            />
+    <header className="fixed top-0 left-0 right-0 z-50">
+      <nav className="bg-bg-translucent backdrop-blur-md border-b border-subtle">
+        <div className="shell h-16 md:h-20 flex items-center justify-between gap-4">
+          <Link to="/" className="flex items-center gap-3">
+            <img src={logo} alt="Castorea" className="h-7 sm:h-8 md:h-9 w-auto" />
+            <span className="sr-only">Castorea</span>
           </Link>
 
-          {/* Center links — desktop */}
-          <ul className="hidden md:flex items-center gap-6 lg:gap-10 list-none absolute left-1/2 -translate-x-1/2">
-            {links.map((link) => (
+          <ul className="hidden md:flex items-center gap-7 lg:gap-9">
+            {navLinks.map((link) => (
               <li key={link.label}>
                 <Link
                   to={link.path}
-                  className={`text-[10px] lg:text-[11px] font-medium tracking-[0.16em] lg:tracking-[0.18em] uppercase transition-colors duration-300 whitespace-nowrap ${
-                    location.pathname === link.path
-                      ? 'text-[#A0784A]'
-                      : 'text-[#8B6F52] hover:text-[#2C2825]'
-                  }`}
+                  className={`nav-link ${location.pathname === link.path ? 'text-ink' : 'text-muted'}`}
                 >
                   {link.label}
                 </Link>
@@ -47,52 +29,59 @@ const Navbar = () => {
             ))}
           </ul>
 
-          {/* CTA — desktop */}
-          <Link
-            to="/book"
-            className="hidden md:inline-flex items-center justify-center text-[10px] lg:text-[11px] font-medium tracking-[0.16em] lg:tracking-[0.18em] uppercase bg-[#2C2825] text-[#F2EDE6] px-5 lg:px-7 py-2.5 lg:py-3 hover:bg-[#A0784A] transition-colors duration-300 shrink-0 whitespace-nowrap"
-          >
-            Book Consultation
-          </Link>
+          <div className="hidden md:flex items-center gap-3">
+            <Link to="/book" className="btn-primary">
+              Book Consultation
+            </Link>
+          </div>
 
-          {/* Hamburger — mobile */}
           <button
-            className="md:hidden flex flex-col gap-1.5 p-2"
-            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden h-10 w-10 rounded-full border border-subtle bg-surface flex flex-col items-center justify-center gap-1"
+            onClick={() => setMenuOpen((open) => !open)}
             aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav"
           >
-            <span className={`block w-6 h-px bg-[#2C2825] transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-            <span className={`block w-6 h-px bg-[#2C2825] transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
-            <span className={`block w-6 h-px bg-[#2C2825] transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+            <span
+              className={`h-px w-5 bg-ink transition-all duration-300 ${
+                menuOpen ? 'translate-y-1.5 rotate-45' : ''
+              }`}
+            />
+            <span
+              className={`h-px w-5 bg-ink transition-all duration-300 ${
+                menuOpen ? 'opacity-0' : ''
+              }`}
+            />
+            <span
+              className={`h-px w-5 bg-ink transition-all duration-300 ${
+                menuOpen ? '-translate-y-1.5 -rotate-45' : ''
+              }`}
+            />
           </button>
         </div>
 
-        {/* Mobile menu */}
         {menuOpen && (
-          <div className="md:hidden absolute left-0 right-0 top-full bg-[#F2EDE6] border-t border-[#D9CFC4] px-4 sm:px-6 py-5 sm:py-6 flex flex-col gap-4 sm:gap-5">
-            {links.map((link) => (
+          <div
+            id="mobile-nav"
+            className="md:hidden border-t border-subtle bg-bg px-5 py-6 flex flex-col gap-4"
+          >
+            {navLinks.map((link) => (
               <Link
                 key={link.label}
                 to={link.path}
                 onClick={() => setMenuOpen(false)}
-                className={`text-[10px] sm:text-[11px] font-medium tracking-[0.16em] sm:tracking-[0.18em] uppercase ${
-                  location.pathname === link.path ? 'text-[#A0784A]' : 'text-[#8B6F52]'
-                }`}
+                className={`nav-link ${location.pathname === link.path ? 'text-ink' : 'text-muted'}`}
               >
                 {link.label}
               </Link>
             ))}
-            <Link
-              to="/book"
-              onClick={() => setMenuOpen(false)}
-              className="text-[10px] sm:text-[11px] font-medium tracking-[0.16em] sm:tracking-[0.18em] uppercase bg-[#2C2825] text-[#F2EDE6] px-5 sm:px-7 py-2.5 sm:py-3 text-center mt-1 sm:mt-2 hover:bg-[#A0784A] transition-colors duration-300"
-            >
+            <Link to="/book" onClick={() => setMenuOpen(false)} className="btn-primary w-full">
               Book Consultation
             </Link>
           </div>
         )}
       </nav>
-    </>
+    </header>
   )
 }
 
