@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import { navLinks } from '../data/siteData'
@@ -7,13 +7,27 @@ const Navbar = () => {
   const location = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMenuOpen(false)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       <nav className="bg-bg-translucent backdrop-blur-md border-b border-subtle">
         <div className="shell h-16 md:h-20 flex items-center justify-between gap-4">
-          <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="Castorea" className="h-7 sm:h-8 md:h-9 w-auto" />
-            <span className="sr-only">Castorea</span>
+          <Link to="/" className="flex items-center gap-3 focus-ring rounded-2xl" aria-label="Castorea home">
+            <img src={logo} alt="" className="h-10 w-10 rounded-full object-contain" />
+            <span className="hidden sm:flex flex-col leading-none">
+              <span className="font-serif text-lg text-ink">Castorea</span>
+              <span className="mt-1 text-[0.58rem] uppercase tracking-[0.22em] text-muted">Singapore</span>
+            </span>
           </Link>
 
           <ul className="hidden md:flex items-center gap-7 lg:gap-9">
@@ -21,6 +35,7 @@ const Navbar = () => {
               <li key={link.label}>
                 <Link
                   to={link.path}
+                  aria-current={location.pathname === link.path ? 'page' : undefined}
                   className={`nav-link ${location.pathname === link.path ? 'text-ink' : 'text-muted'}`}
                 >
                   {link.label}
@@ -38,7 +53,7 @@ const Navbar = () => {
           <button
             className="md:hidden h-10 w-10 rounded-full border border-subtle bg-surface flex flex-col items-center justify-center gap-1"
             onClick={() => setMenuOpen((open) => !open)}
-            aria-label="Toggle menu"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
           >
@@ -70,6 +85,7 @@ const Navbar = () => {
                 key={link.label}
                 to={link.path}
                 onClick={() => setMenuOpen(false)}
+                aria-current={location.pathname === link.path ? 'page' : undefined}
                 className={`nav-link ${location.pathname === link.path ? 'text-ink' : 'text-muted'}`}
               >
                 {link.label}

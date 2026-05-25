@@ -38,7 +38,7 @@ const Portfolio = () => {
                 <span className="text-accent"> Castorea collection</span>
               </>
             }
-            description="Replace the placeholders with your project photos to complete the gallery."
+            description="A curated look at room concepts, material palettes, and furnishing directions for calm Singapore homes."
           />
           <ProjectGrid items={projects} />
         </div>

@@ -27,18 +27,9 @@ const CtaSection = ({
 
   return (
     <section className={`section-pad ${isDark ? 'bg-ink text-bg' : 'bg-surface-alt text-ink'}`}>
-      <div className="shell relative">
+      <div className="shell">
         <div
-          className="absolute -top-10 right-6 h-24 w-24 rounded-full blur-2xl"
-          style={{ backgroundColor: 'rgba(197, 154, 106, 0.25)' }}
-        />
-        <div
-          className="absolute bottom-6 left-10 h-20 w-20 rounded-full blur-2xl"
-          style={{ backgroundColor: 'rgba(197, 154, 106, 0.35)' }}
-        />
-
-        <div
-          className="relative rounded-4xl border border-subtle bg-linear-to-br from-white/0 via-white/0 to-white/5 p-8 sm:p-12 lg:p-14 text-center flex flex-col items-center gap-6"
+          className="rounded-4xl border border-subtle bg-linear-to-br from-white/0 via-white/0 to-white/5 p-8 sm:p-12 lg:p-14 text-center flex flex-col items-center gap-6"
           style={{ borderColor: 'rgba(228, 216, 205, 0.4)' }}
         >
           <p className={`eyebrow ${isDark ? 'text-accent' : 'text-accent'}`}>{eyebrow}</p>

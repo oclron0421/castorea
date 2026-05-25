@@ -35,7 +35,7 @@ const Reviews = () => {
                 <span className="text-accent"> intention</span>
               </>
             }
-            description="Replace these with your real client testimonials as you collect them."
+            description="Client notes on comfort, clarity, and the small decisions that make a home feel finished."
           />
           <ReviewGrid items={reviews} />
         </div>

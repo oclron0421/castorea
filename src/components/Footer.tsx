@@ -3,26 +3,37 @@ import logo from '../assets/logo.png'
 import { contact, navLinks, services, socialLinks } from '../data/siteData'
 
 const Footer = () => {
+  const availableSocialLinks = socialLinks.filter((link) => link.href && link.href !== '#')
+
   return (
     <footer className="bg-ink text-bg">
       <div className="shell section-pad">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 border-b border-white/10 pb-10">
           <div className="flex flex-col gap-5">
-            <img src={logo} alt="Castorea" className="h-10 w-auto" />
+            <div className="flex items-center gap-3">
+              <img src={logo} alt="" className="h-14 w-14 rounded-full object-contain bg-bg" />
+              <div className="flex flex-col leading-none">
+                <span className="font-serif text-xl text-bg">Castorea</span>
+                <span className="mt-1 text-[0.58rem] uppercase tracking-[0.22em] text-white/50">Singapore</span>
+              </div>
+            </div>
             <p className="text-sm text-white/70 leading-relaxed">
               Furnishing homes, designing living with warmth, balance, and intention.
             </p>
-            <div className="flex gap-3">
-              {socialLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="h-10 w-10 rounded-full border border-white/20 text-[10px] tracking-[0.22em] uppercase flex items-center justify-center text-white/70 hover:text-white hover:border-accent transition"
-                >
-                  {link.short}
-                </a>
-              ))}
-            </div>
+            {availableSocialLinks.length > 0 && (
+              <div className="flex gap-3" aria-label="Social links">
+                {availableSocialLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    aria-label={link.label}
+                    className="h-10 w-10 rounded-full border border-white/20 text-[10px] tracking-[0.2em] uppercase flex items-center justify-center text-white/70 hover:text-white hover:border-accent transition"
+                  >
+                    {link.short}
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="flex flex-col gap-4">

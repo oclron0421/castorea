@@ -60,7 +60,7 @@ export type Package = {
   items: string[]
 }
 
-export const formspreeEndpoint = 'https://formspree.io/f/yourformid'
+export const formspreeEndpoint = ''
 
 export const navLinks: NavLink[] = [
   { label: 'Home', path: '/' },
@@ -71,16 +71,16 @@ export const navLinks: NavLink[] = [
 ]
 
 export const socialLinks: SocialLink[] = [
-  { label: 'Instagram', short: 'IG', href: '#' },
-  { label: 'TikTok', short: 'TK', href: '#' },
-  { label: 'Carousell', short: 'CR', href: '#' },
+  { label: 'Instagram', short: 'IG', href: '' },
+  { label: 'TikTok', short: 'TK', href: '' },
+  { label: 'Carousell', short: 'CR', href: '' },
 ]
 
 export const contact = {
   email: 'hello@castorea.sg',
   phone: '+65 9123 4567',
   location: 'Singapore',
-  whatsapp: '#',
+  whatsapp: '',
 }
 
 export const stats: Stat[] = [

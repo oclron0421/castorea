@@ -4,7 +4,7 @@ import SectionHeader from '../components/SectionHeader'
 import { contact, faqs, formspreeEndpoint } from '../data/siteData'
 
 const Book = () => {
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'email' | 'error'>('idle')
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -12,6 +12,26 @@ const Book = () => {
     const formData = new FormData(form)
 
     if (formData.get('company')) {
+      return
+    }
+
+    if (!formspreeEndpoint) {
+      const details = [
+        `Name: ${String(formData.get('name') ?? '')}`,
+        `Email: ${String(formData.get('email') ?? '')}`,
+        `Phone: ${String(formData.get('phone') ?? '')}`,
+        `Preferred contact: ${String(formData.get('contactMethod') ?? '')}`,
+        `Project type: ${String(formData.get('projectType') ?? '')}`,
+        `Budget: ${String(formData.get('budget') ?? '')}`,
+        `Location: ${String(formData.get('location') ?? '')}`,
+        '',
+        String(formData.get('message') ?? ''),
+      ].join('\n')
+
+      window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(
+        'Castorea consultation request',
+      )}&body=${encodeURIComponent(details)}`
+      setStatus('email')
       return
     }
 
@@ -31,7 +51,7 @@ const Book = () => {
       } else {
         setStatus('error')
       }
-    } catch (error) {
+    } catch {
       setStatus('error')
     }
   }
@@ -58,12 +78,12 @@ const Book = () => {
             <SectionHeader
               eyebrow="Consultation form"
               title={<>Project details</>}
-              description="All fields are required. Replace the Formspree endpoint when ready."
+              description="Share a few details about your home, timeline, and preferred way to be contacted."
             />
 
             <form
               onSubmit={handleSubmit}
-              action={formspreeEndpoint}
+              action={formspreeEndpoint || undefined}
               method="POST"
               className="mt-8 flex flex-col gap-5"
             >
@@ -167,6 +187,11 @@ const Book = () => {
                   Thanks for reaching out. We will be in touch soon.
                 </p>
               )}
+              {status === 'email' && (
+                <p className="text-sm text-accent" aria-live="polite">
+                  Your email app should open with the project details ready to send.
+                </p>
+              )}
               {status === 'error' && (
                 <p className="text-sm text-muted" aria-live="polite">
                   Something went wrong. Please try again or contact us directly.
@@ -201,9 +226,11 @@ const Book = () => {
                 <a href={`tel:${contact.phone.replace(/\s/g, '')}`} className="link-muted">
                   {contact.phone}
                 </a>
-                <a href={contact.whatsapp} className="link-muted">
-                  WhatsApp us
-                </a>
+                {contact.whatsapp && (
+                  <a href={contact.whatsapp} className="link-muted">
+                    WhatsApp us
+                  </a>
+                )}
               </div>
             </div>
           </aside>
@@ -220,7 +247,7 @@ const Book = () => {
                 <span className="text-accent"> first call</span>
               </>
             }
-            description="You can update these when your policy is finalized."
+            description="A few details to help you plan the first conversation."
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {faqs.map((faq) => (

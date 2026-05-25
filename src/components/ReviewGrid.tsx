@@ -12,9 +12,11 @@ const ReviewGrid = ({ items }: ReviewGridProps) => {
           key={`${review.name}-${review.project}`}
           className="rounded-3xl border border-subtle bg-surface p-6 sm:p-7 shadow-soft flex flex-col gap-6"
         >
-          <div className="flex gap-1 text-sm">
+          <div className="flex gap-1 text-sm" aria-label={`${review.stars} out of 5 stars`}>
             {Array.from({ length: review.stars }).map((_, index) => (
-              <span key={index} className="text-accent">*</span>
+              <span key={index} className="text-accent" aria-hidden="true">
+                ★
+              </span>
             ))}
           </div>
           <p className="text-sm sm:text-base text-ink leading-relaxed">"{review.quote}"</p>
