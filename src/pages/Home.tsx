@@ -25,7 +25,7 @@ const Home = () => {
         />
         <div className="shell relative grid gap-12 lg:grid-cols-[1.05fr_0.95fr] items-center">
           <div className="flex flex-col gap-6">
-            <p className="eyebrow text-accent">Singapore home furnishing studio</p>
+            <p className="eyebrow text-base text-accent">Singapore home furnishing and interior design studio</p>
             <h1 className="display-hero font-serif text-ink">
               Furnishing homes,
               <span className="text-accent"> designing living.</span>
@@ -77,14 +77,9 @@ const Home = () => {
       <section className="section-pad">
         <div className="shell flex flex-col gap-10">
           <SectionHeader
-            eyebrow="Signature services"
-            title={
-              <>
-                The furnishings your
-                <span className="text-accent"> home deserves</span>
-              </>
-            }
-            description="Curated pieces, custom layouts, and full-service styling tailored to your lifestyle."
+            eyebrow=""
+            title="Signature services"
+            description="Refined Living, Beautifully Designed."
           >
             <Link to="/services" className="btn-outline">
               Explore Services
@@ -114,22 +109,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="section-pad">
-        <div className="shell flex flex-col gap-10">
-          <SectionHeader
-            eyebrow="Our process"
-            title={
-              <>
-                From first call to
-                <span className="text-accent"> final reveal</span>
-              </>
-            }
-            description="A clear, guided experience that keeps your project on track."
-          />
-          <ProcessSteps items={processSteps} />
-        </div>
-      </section>
-
+     
       <section className="section-pad bg-surface">
         <div className="shell flex flex-col gap-10">
           <SectionHeader

@@ -5,6 +5,7 @@ import { contact, faqs, formspreeEndpoint } from '../data/siteData'
 
 const Book = () => {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'email' | 'error'>('idle')
+  const [projectType, setProjectType] = useState<string>('')
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -23,7 +24,7 @@ const Book = () => {
         `Preferred contact: ${String(formData.get('contactMethod') ?? '')}`,
         `Project type: ${String(formData.get('projectType') ?? '')}`,
         `Budget: ${String(formData.get('budget') ?? '')}`,
-        `Location: ${String(formData.get('location') ?? '')}`,
+        
         '',
         String(formData.get('message') ?? ''),
       ].join('\n')
@@ -85,6 +86,7 @@ const Book = () => {
               onSubmit={handleSubmit}
               action={formspreeEndpoint || undefined}
               method="POST"
+              encType="multipart/form-data"
               className="mt-8 flex flex-col gap-5"
             >
               <input
@@ -137,15 +139,43 @@ const Book = () => {
                 </label>
                 <label className="flex flex-col gap-2 text-sm text-ink">
                   Project Type
-                  <select name="projectType" required className="input-field">
+                  <select
+                    name="projectType"
+                    required
+                    className="input-field"
+                    value={projectType}
+                    onChange={(e) => setProjectType(e.target.value)}
+                  >
                     <option value="">Select an option</option>
-                    <option value="full-home">Full home furnishing</option>
-                    <option value="living-room">Living room refresh</option>
-                    <option value="bedroom">Bedroom refresh</option>
-                    <option value="staging">Property staging</option>
-                    <option value="carpentry">Custom carpentry</option>
+                    <option value="HDB-resale-reno">HDB Resale Renovation</option>
+                    <option value="condo-reno">Condominium Renovation</option>
+                    <option value="BTO-reno">BTO Renovation</option>
+                    <option value="contractor">Contractor Services only</option>
+                    <option value="commerical">Commercial</option>
+                    <option value="landed-reno">Landed Property Renovation</option>
+                    <option value="others">Others</option>
+                  </select>
+                  {projectType === 'others' && (
+                    <input
+                      type="text"
+                      name="projectTypeOther"
+                      className="input-field mt-2"
+                      placeholder="Please specify"
+                      required
+                    />
+                  )}
+                </label>
+                
+                <label className="flex flex-col gap-2 text-sm text-ink">
+                  Project Timeline
+                  <select name="timeline" required className="input-field">
+                    <option value="">Select an option</option>
+                    <option value="1-2months">1-2 months</option>
+                    <option value="3-4months">3-4 months</option>
+                    <option value="5+months">5+ months</option>
                   </select>
                 </label>
+
                 <label className="flex flex-col gap-2 text-sm text-ink">
                   Budget Range
                   <select name="budget" required className="input-field">
@@ -157,16 +187,27 @@ const Book = () => {
                   </select>
                 </label>
                 <label className="flex flex-col gap-2 text-sm text-ink sm:col-span-2">
-                  Location
+                  Any design preferences or lifestyle considerations?
                   <input
                     type="text"
-                    name="location"
+                    name="designPreferences"
                     required
                     className="input-field"
-                    placeholder="Area or estate"
+                    placeholder="Any specific styles or features you like?"
                   />
                 </label>
               </div>
+
+              <label className="flex flex-col gap-2 text-sm text-ink">
+                Add moodboards, floor plans or any documents you'd like us to know here
+                <input
+                  type="file"
+                  name="attachments"
+                  multiple
+                  accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt"
+                  className="input-field"
+                />
+              </label>
 
               <label className="flex flex-col gap-2 text-sm text-ink">
                 Message
@@ -237,32 +278,7 @@ const Book = () => {
         </div>
       </section>
 
-      <section className="section-pad">
-        <div className="shell flex flex-col gap-10">
-          <SectionHeader
-            eyebrow="FAQ"
-            title={
-              <>
-                Answers before your
-                <span className="text-accent"> first call</span>
-              </>
-            }
-            description="A few details to help you plan the first conversation."
-          />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {faqs.map((faq) => (
-              <article
-                key={faq.question}
-                className="rounded-3xl border border-subtle bg-surface p-6 sm:p-7 shadow-soft"
-              >
-                <h3 className="text-base font-semibold text-ink">{faq.question}</h3>
-                <p className="text-sm text-muted leading-relaxed mt-3">{faq.answer}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
+     
       <CtaSection
         eyebrow="Need more inspiration"
         title={

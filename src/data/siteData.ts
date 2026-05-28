@@ -65,7 +65,6 @@ export const formspreeEndpoint = ''
 export const navLinks: NavLink[] = [
   { label: 'Home', path: '/' },
   { label: 'Portfolio', path: '/portfolio' },
-  { label: 'Services', path: '/services' },
   { label: 'About', path: '/about' },
   { label: 'Reviews', path: '/reviews' },
 ]
@@ -87,7 +86,8 @@ export const stats: Stat[] = [
   { value: '120+', label: 'Homes furnished' },
   { value: '12 yrs', label: 'Design practice' },
   { value: '4.9/5', label: 'Client rating' },
-  { value: '30 days', label: 'Average timeline' },
+  { value: '500+', label: 'Carpentry custom projects' },
+  {value: '100%', label: 'Dedicated Project Coordination'}  
 ]
 
 export const services: Service[] = [
@@ -98,15 +98,15 @@ export const services: Service[] = [
     accent: '#E4D2BC',
   },
   {
-    title: 'Room Refresh',
-    summary: 'Transform a living room, bedroom, or dining space.',
-    bullets: ['Layout update', 'Key pieces', 'Final styling'],
+    title: 'Interior Design',
+    summary: 'From concept to completion, we manage the entire renovation process.',
+    bullets: ['Interior renovation', 'Space planning', 'Design consultation'],
     accent: '#D9C1A6',
   },
   {
-    title: 'Staging for Sale',
-    summary: 'Prepare listings with polished, buyer-ready styling.',
-    bullets: ['Furniture rental', 'Lifestyle vignettes', 'Photo ready'],
+    title: 'Direct renovation',
+    summary: 'Focussed on quality workmanship, transparency and reliable delivery',
+    bullets: ['Direct contractor', 'Factory pricing', 'No middleman'],
     accent: '#D1B79A',
   },
   {
