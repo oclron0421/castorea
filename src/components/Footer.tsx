@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import logo from '../assets/logo.png'
+import logo from '../assets/castorea_logo.svg'
 import { contact, navLinks, services, socialLinks } from '../data/siteData'
 
 const Footer = () => {

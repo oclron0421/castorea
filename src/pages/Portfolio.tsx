@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import CtaSection from '../components/CtaSection'
 import ProjectGrid from '../components/ProjectGrid'
 import SectionHeader from '../components/SectionHeader'

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import CtaSection from '../components/CtaSection'
 import SectionHeader from '../components/SectionHeader'
-import { contact, faqs, formspreeEndpoint } from '../data/siteData'
+import { contact, formspreeEndpoint } from '../data/siteData'
 
 const Book = () => {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'email' | 'error'>('idle')

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import logo from '../assets/logo.png'
+import logo from '../assets/castorea_logo.svg'
 import { navLinks } from '../data/siteData'
 
 const Navbar = () => {
