@@ -13,7 +13,7 @@ const About = () => {
           <p className="eyebrow text-accent">About Castorea</p>
           <h1 className="display-hero font-serif text-ink">
             Boutique interiors shaped by
-            <span className="text-accent"> warmth and craft</span>
+            <span className="text-accent"> comfort and craft</span>
           </h1>
           <p className="body-lg text-muted max-w-2xl">
             Castorea is a home furnishing studio in Singapore focused on creating layered, functional spaces that

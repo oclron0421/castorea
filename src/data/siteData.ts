@@ -80,7 +80,8 @@ export type Package = {
   items: string[]
 }
 
-export const formspreeEndpoint = ''
+export const web3FormsEndpoint = 'https://api.web3forms.com/submit'
+export const web3FormsAccessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ?? ''
 
 export const navLinks: NavLink[] = [
   { label: 'Home', path: '/' },
@@ -222,7 +223,7 @@ export const projects: Project[] = [
       },
       {
         label: 'Textile palette',
-        caption: 'Soft fabrics and tonal layers selected for comfort and warmth.',
+        caption: 'Soft fabrics and tonal layers selected for comfort and ease.',
         accent: '#E3D3C2',
       },
     ],
@@ -251,7 +252,7 @@ export const projects: Project[] = [
       },
       {
         label: 'Countertop and backsplash',
-        caption: 'Finish pairing selected for easy maintenance and visual warmth.',
+        caption: 'Finish pairing selected for easy maintenance and visual softness.',
         accent: '#ECD8C2',
       },
       {
@@ -270,7 +271,7 @@ export const projects: Project[] = [
     style: 'Sculpted warm',
     accent: '#D2B089',
     summary:
-      'A dining zone with sculptural warmth, considered proportions, and ambient details for intimate hosting.',
+      'A dining zone with sculptural character, considered proportions, and ambient details for intimate hosting.',
     scope: ['Dining area styling', 'Lighting direction', 'Furniture and material curation'],
     photos: [
       {
@@ -469,7 +470,7 @@ export const projectJourneyStages: ProjectJourneyStage[] = [
 
 export const values: Value[] = [
   {
-    title: 'Warmth in Every Detail',
+    title: 'Comfort in Every Detail',
     description: 'We design spaces that feel lived-in, welcoming, and timeless.',
   },
   {

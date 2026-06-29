@@ -18,7 +18,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-sm text-white/70 leading-relaxed">
-              Furnishing homes, designing living with warmth, balance, and intention.
+              Furnishing homes, designing living with comfort, balance, and intention.
             </p>
             {availableSocialLinks.length > 0 && (
               <div className="flex gap-3" aria-label="Social links">

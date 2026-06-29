@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import CtaSection from '../components/CtaSection'
 import SectionHeader from '../components/SectionHeader'
-import { contact, formspreeEndpoint } from '../data/siteData'
+import { contact, web3FormsAccessKey, web3FormsEndpoint } from '../data/siteData'
 
 const Book = () => {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'email' | 'error'>('idle')
@@ -12,19 +12,23 @@ const Book = () => {
     const form = event.currentTarget
     const formData = new FormData(form)
 
-    if (formData.get('company')) {
+    if (formData.get('_gotcha')) {
       return
     }
 
-    if (!formspreeEndpoint) {
+    if (!web3FormsAccessKey) {
+      const projectTypeValue = String(formData.get('projectType') ?? '')
+      const projectTypeOtherValue = String(formData.get('projectTypeOther') ?? '')
+
       const details = [
         `Name: ${String(formData.get('name') ?? '')}`,
         `Email: ${String(formData.get('email') ?? '')}`,
         `Phone: ${String(formData.get('phone') ?? '')}`,
         `Preferred contact: ${String(formData.get('contactMethod') ?? '')}`,
-        `Project type: ${String(formData.get('projectType') ?? '')}`,
+        `Project type: ${projectTypeValue}${projectTypeOtherValue ? ` - ${projectTypeOtherValue}` : ''}`,
+        `Timeline: ${String(formData.get('timeline') ?? '')}`,
         `Budget: ${String(formData.get('budget') ?? '')}`,
-        
+        `Design preferences: ${String(formData.get('designPreferences') ?? '')}`,
         '',
         String(formData.get('message') ?? ''),
       ].join('\n')
@@ -38,17 +42,19 @@ const Book = () => {
 
     try {
       setStatus('sending')
-      const response = await fetch(formspreeEndpoint, {
+      const response = await fetch(web3FormsEndpoint, {
         method: 'POST',
         headers: {
+          'Content-Type': 'application/json',
           Accept: 'application/json',
         },
-        body: formData,
+        body: JSON.stringify(Object.fromEntries(formData)),
       })
 
       if (response.ok) {
         setStatus('success')
         form.reset()
+        setProjectType('')
       } else {
         setStatus('error')
       }
@@ -84,18 +90,20 @@ const Book = () => {
 
             <form
               onSubmit={handleSubmit}
-              action={formspreeEndpoint || undefined}
+              action={web3FormsAccessKey ? web3FormsEndpoint : undefined}
               method="POST"
-              encType="multipart/form-data"
               className="mt-8 flex flex-col gap-5"
             >
+              <input type="hidden" name="access_key" value={web3FormsAccessKey} />
               <input
                 type="text"
-                name="company"
+                name="_gotcha"
                 className="sr-only"
                 tabIndex={-1}
                 autoComplete="off"
+                aria-hidden="true"
               />
+              <input type="hidden" name="_subject" value="Castorea consultation request" />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <label className="flex flex-col gap-2 text-sm text-ink">
@@ -119,7 +127,7 @@ const Book = () => {
                   />
                 </label>
                 <label className="flex flex-col gap-2 text-sm text-ink">
-                  Phone
+                  Phone Number
                   <input
                     type="tel"
                     name="phone"
@@ -197,17 +205,6 @@ const Book = () => {
                   />
                 </label>
               </div>
-
-              <label className="flex flex-col gap-2 text-sm text-ink">
-                Add moodboards, floor plans or any documents you'd like us to know here
-                <input
-                  type="file"
-                  name="attachments"
-                  multiple
-                  accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt"
-                  className="input-field"
-                />
-              </label>
 
               <label className="flex flex-col gap-2 text-sm text-ink">
                 Message
