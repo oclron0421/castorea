@@ -1,7 +1,7 @@
 import CtaSection from '../components/CtaSection'
 import ProjectGrid from '../components/ProjectGrid'
 import SectionHeader from '../components/SectionHeader'
-import { projects } from '../data/siteData'
+import { portfolioCategories, projects } from '../data/siteData'
 
 const Portfolio = () => {
   return (
@@ -18,21 +18,32 @@ const Portfolio = () => {
         </div>
       </section>
 
-      <section className="section-pad bg-surface">
-        <div className="shell flex flex-col gap-10">
-          <SectionHeader
-            eyebrow="Project gallery"
-            title={
-              <>
-                Explore the
-                <span className="text-accent"> Castorea collection</span>
-              </>
-            }
-            description="A curated look at room concepts, material palettes, and furnishing directions for calm Singapore homes."
-          />
-          <ProjectGrid items={projects} />
-        </div>
-      </section>
+      {portfolioCategories.map((portfolioCategory, index) => {
+        const categoryProjects = projects.filter(
+          (project) => project.portfolioCategory === portfolioCategory.id,
+        )
+
+        return (
+          <section
+            key={portfolioCategory.id}
+            className={`section-pad ${index % 2 === 0 ? 'bg-surface' : 'bg-surface-alt'}`}
+          >
+            <div className="shell flex flex-col gap-10">
+              <SectionHeader
+                eyebrow={portfolioCategory.eyebrow}
+                title={
+                  <>
+                    {portfolioCategory.title}
+                    <span className="text-accent"> portfolio</span>
+                  </>
+                }
+                description={portfolioCategory.description}
+              />
+              <ProjectGrid items={categoryProjects} />
+            </div>
+          </section>
+        )
+      })}
 
 
       <CtaSection

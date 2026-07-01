@@ -92,7 +92,7 @@ const ProjectDetail = () => {
               <p className="eyebrow text-accent">Photo gallery</p>
               <h2 className="display font-serif text-ink">Completed project photos</h2>
               <p className="body-lg max-w-2xl text-muted">
-                Browse the key views for this project. These placeholders are ready for the final photos once they are added.
+                Browse the key completed views for this project, from wide angles to detail shots.
               </p>
             </div>
 
@@ -148,7 +148,7 @@ const ProjectDetail = () => {
                     )}
                     <div className="absolute inset-0 bg-linear-to-t from-black/35 via-transparent to-transparent" />
                     <p className="absolute bottom-4 left-4 right-4 text-xs font-semibold uppercase tracking-[0.25em] text-white/85">
-                      Photo placeholder
+                      Project photo
                     </p>
                   </div>
                   <div className="flex flex-col gap-2 p-5">

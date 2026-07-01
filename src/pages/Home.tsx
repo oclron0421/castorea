@@ -10,6 +10,7 @@ import SectionHeader from '../components/SectionHeader'
 import ServiceGrid from '../components/ServiceGrid'
 import StatsStrip from '../components/StatsStrip'
 import {
+  homeHeroPhotos,
   projectJourneyStages,
   projects,
   reviews,
@@ -55,17 +56,18 @@ const Home = () => {
             </div>
 
             <div className="relative grid gap-4 sm:grid-cols-2">
-              {[
-                { label: 'Living Room', accent: '#E5D2BC', height: 'aspect-[4/5]' },
-                { label: 'Dining', accent: '#D8BFA2', height: 'aspect-[3/4]' },
-                { label: 'Bedroom', accent: '#D1B495', height: 'aspect-[3/4]' },
-                { label: 'Kitchen', accent: '#E8D7C4', height: 'aspect-[4/5]' },
-              ].map((card) => (
+              {homeHeroPhotos.map((card) => (
                 <div
                   key={card.label}
                   className={`relative rounded-3xl overflow-hidden shadow-soft ${card.height} float-slow`}
                   style={{ backgroundColor: card.accent }}
                 >
+                  <img
+                    src={card.image}
+                    alt={`${card.label} interior`}
+                    className="absolute inset-0 h-full w-full object-cover"
+                    loading="eager"
+                  />
                   <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/30" />
                   <p className="absolute bottom-4 left-4 text-xs uppercase tracking-[0.3em] text-white/80">
                     {card.label}

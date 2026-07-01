@@ -1,3 +1,14 @@
+import completionPhoto from '../assets/CompletionPhoto.png'
+import homePage1 from '../assets/HP1.jpg'
+import homePage2 from '../assets/HP2.jpg'
+import homePage3 from '../assets/HP3.jpg'
+import homePage4 from '../assets/HP4.jpg'
+import understandingNeeds1 from '../assets/UN1.jpg'
+import understandingNeeds2 from '../assets/UN2.jpg'
+import understandingNeeds3 from '../assets/UN3.png'
+import visualisation1 from '../assets/V1.png'
+import visualisation2 from '../assets/V2.png'
+
 export type NavLink = {
   label: string
   path: string
@@ -14,6 +25,13 @@ export type Stat = {
   label: string
 }
 
+export type HomeHeroPhoto = {
+  label: string
+  accent: string
+  height: string
+  image: string
+}
+
 export type Service = {
   title: string
   summary: string
@@ -21,9 +39,19 @@ export type Service = {
   accent: string
 }
 
+export type PortfolioCategoryId = 'residential' | 'commercial' | 'smaller-projects'
+
+export type PortfolioCategory = {
+  id: PortfolioCategoryId
+  eyebrow: string
+  title: string
+  description: string
+}
+
 export type Project = {
   slug: string
   title: string
+  portfolioCategory: PortfolioCategoryId
   category: string
   location: string
   year: string
@@ -54,11 +82,16 @@ export type ProcessStep = {
   description: string
 }
 
+export type ProjectJourneyMedia = {
+  label: string
+  image?: string
+}
+
 export type ProjectJourneyStage = {
   stage: string
   title: string
   description: string
-  media: string[]
+  media: ProjectJourneyMedia[]
   note?: string
   bullets: string[]
 }
@@ -82,6 +115,60 @@ export type Package = {
 
 export const web3FormsEndpoint = 'https://api.web3forms.com/submit'
 export const web3FormsAccessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ?? ''
+
+const portfolioImageModules = import.meta.glob<string>('../assets/**/*.{jpg,jpeg,png}', {
+  eager: true,
+  import: 'default',
+})
+
+const getPortfolioImage = (path: string) => {
+  const image = portfolioImageModules[`../assets/${path}`]
+
+  if (!image) {
+    throw new Error(`Portfolio image not found: ${path}`)
+  }
+
+  return image
+}
+
+const projectPhoto = (label: string, caption: string, path: string): ProjectPhoto => ({
+  label,
+  caption,
+  image: getPortfolioImage(path),
+})
+
+const createProject = (project: Omit<Project, 'image'> & { image?: string }): Project => ({
+  ...project,
+  image: project.image ?? project.photos[0]?.image,
+})
+
+export const homeHeroPhotos: HomeHeroPhoto[] = [
+  { label: 'Living Room', accent: '#E5D2BC', height: 'aspect-[4/5]', image: homePage1 },
+  { label: 'Dining', accent: '#D8BFA2', height: 'aspect-[3/4]', image: homePage2 },
+  { label: 'Bedroom', accent: '#D1B495', height: 'aspect-[3/4]', image: homePage3 },
+  { label: 'Kitchen', accent: '#E8D7C4', height: 'aspect-[4/5]', image: homePage4 },
+]
+
+export const portfolioCategories: PortfolioCategory[] = [
+  {
+    id: 'residential',
+    eyebrow: 'Residential',
+    title: 'Residential projects',
+    description: 'Complete home interiors, BTO works, and renovation details shaped for everyday living.',
+  },
+  {
+    id: 'commercial',
+    eyebrow: 'Commercial',
+    title: 'Commercial projects',
+    description: 'Retail and business spaces planned around customer flow, display, storage, and operations.',
+  },
+  {
+    id: 'smaller-projects',
+    eyebrow: 'Smaller projects',
+    title: 'Smaller projects',
+    description: 'Focused carpentry and feature works for storage, display, bedrooms, and compact upgrades.',
+  },
+]
 
 export const navLinks: NavLink[] = [
   { label: 'Home', path: '/' },
@@ -160,210 +247,476 @@ export const packages: Package[] = [
 ]
 
 export const projects: Project[] = [
-  {
-    slug: 'the-maia-residence',
-    title: 'The Maia Residence',
-    category: 'Living Room',
-    location: 'Bishan, HDB 5-Room',
+  createProject({
+    slug: 'bukit-batok-residence',
+    title: 'Bukit Batok Residence',
+    portfolioCategory: 'residential',
+    category: 'Residential',
+    location: 'Bukit Batok',
     year: '2025',
-    style: 'Warm minimal',
+    style: 'Warm contemporary',
     accent: '#D6BFA6',
     summary:
-      'A warm, calming living space shaped around soft textures, layered storage, and an easy everyday hosting flow.',
-    scope: ['Living room design', 'Custom storage planning', 'Furniture and styling direction'],
+      'A residential renovation with warm finishes, practical built-ins, and clean everyday storage details.',
+    scope: ['Residential renovation', 'Custom carpentry', 'Storage and finish coordination'],
     photos: [
-      {
-        label: 'Living room overview',
-        caption: 'Main living area with a balanced layout and warm neutral palette.',
-        accent: '#D6BFA6',
-      },
-      {
-        label: 'Feature wall detail',
-        caption: 'Textured surfaces and storage details designed for a clean visual line.',
-        accent: '#C8AD90',
-      },
-      {
-        label: 'Lounge angle',
-        caption: 'A secondary view showing circulation, seating, and layered soft furnishings.',
-        accent: '#E1CCB3',
-      },
-      {
-        label: 'Material palette',
-        caption: 'Finishes selected to keep the home warm, practical, and timeless.',
-        accent: '#BFA384',
-      },
+      projectPhoto(
+        'Living and storage view',
+        'A warm residential view with built-in details planned for daily use.',
+        '(RESIDENTIAL) BUKIT BATOK/IMG-20251002-WA0027.jpg',
+      ),
+      projectPhoto(
+        'Feature carpentry',
+        'Clean cabinetry lines paired with a practical circulation flow.',
+        '(RESIDENTIAL) BUKIT BATOK/IMG-20251002-WA0025.jpg',
+      ),
+      projectPhoto(
+        'Home detail',
+        'A closer project angle showing materials, finishes, and alignment.',
+        '(RESIDENTIAL) BUKIT BATOK/IMG-20251002-WA0024.jpg',
+      ),
+      projectPhoto(
+        'Installation detail',
+        'Completed carpentry and finishing details after site coordination.',
+        '(RESIDENTIAL) BUKIT BATOK/IMG-20251016-WA0105.jpg',
+      ),
+      projectPhoto(
+        'Final view',
+        'A final project view documenting the completed residential works.',
+        '(RESIDENTIAL) BUKIT BATOK/IMG-20251016-WA0106.jpg',
+      ),
     ],
-  },
-  {
-    slug: 'dusk-retreat',
-    title: 'Dusk Retreat',
-    category: 'Bedroom',
-    location: 'Clementi, Condominium',
-    year: '2024',
-    style: 'Soft layered',
+  }),
+  createProject({
+    slug: 'hougang-residence',
+    title: 'Hougang Residence',
+    portfolioCategory: 'residential',
+    category: 'Residential',
+    location: 'Hougang',
+    year: '2026',
+    style: 'Modern built-in',
     accent: '#C5A98A',
     summary:
-      'A restful bedroom concept with muted tones, soft lighting, and tailored storage for a gentle end-of-day rhythm.',
-    scope: ['Bedroom refresh', 'Lighting and soft furnishing direction', 'Wardrobe planning'],
+      'A residential project combining carpentry, foyer planning, kitchen works, and bedroom storage.',
+    scope: ['Home carpentry works', 'Kitchen and foyer planning', 'Bedroom storage details'],
     photos: [
-      {
-        label: 'Bedroom overview',
-        caption: 'A calm sleeping area composed with gentle contrast and soft layered finishes.',
-        accent: '#C5A98A',
-      },
-      {
-        label: 'Bedside detail',
-        caption: 'Close-up of bedside styling, lighting, and tactile materials.',
-        accent: '#D9C3A9',
-      },
-      {
-        label: 'Wardrobe elevation',
-        caption: 'Storage planning that keeps the room quiet and uncluttered.',
-        accent: '#B99878',
-      },
-      {
-        label: 'Textile palette',
-        caption: 'Soft fabrics and tonal layers selected for comfort and ease.',
-        accent: '#E3D3C2',
-      },
+      projectPhoto(
+        'Completed home view',
+        'A completed residential angle showing the built-in works in context.',
+        '(RESIDENTIAL) HOUGANG/20260417_230059.jpg',
+      ),
+      projectPhoto(
+        'Carpentry detail',
+        'A closer look at the storage workmanship and finish alignment.',
+        '(RESIDENTIAL) HOUGANG/20260417_230036.jpg',
+      ),
+      projectPhoto(
+        'Interior detail',
+        'A supporting view documenting completed residential works.',
+        '(RESIDENTIAL) HOUGANG/20260417_230021.jpg',
+      ),
+      projectPhoto(
+        'Bedroom',
+        'Bedroom carpentry planned around a clean and functional layout.',
+        '(RESIDENTIAL) HOUGANG/Bedroom.png',
+      ),
+      projectPhoto(
+        'Foyer',
+        'Foyer storage and entry details designed for daily routines.',
+        '(RESIDENTIAL) HOUGANG/Foyer.png',
+      ),
+      projectPhoto(
+        'Kitchen view 1',
+        'Kitchen cabinetry and storage designed for a polished workflow.',
+        '(RESIDENTIAL) HOUGANG/Kitchen 1.png',
+      ),
+      projectPhoto(
+        'Kitchen view 2',
+        'A second kitchen angle showing material continuity and storage lines.',
+        '(RESIDENTIAL) HOUGANG/Kitchen.png',
+      ),
     ],
-  },
-  {
-    slug: 'terranova-kitchen',
-    title: 'Terranova Kitchen',
-    category: 'Kitchen',
-    location: 'Orchard, Landed',
-    year: '2025',
-    style: 'Modern natural',
+  }),
+  createProject({
+    slug: 'punggol-cove-4-room-bto',
+    title: 'Punggol Cove 4-Room BTO',
+    portfolioCategory: 'residential',
+    category: 'Residential',
+    location: 'Punggol Cove',
+    year: '2026',
+    style: 'BTO contemporary',
     accent: '#E0C8AD',
     summary:
-      'A natural-toned kitchen designed for daily cooking, easy storage, and a polished connection to the dining area.',
-    scope: ['Kitchen layout planning', 'Cabinetry design', 'Material and countertop selection'],
+      'A 4-room BTO project with planned entry storage, living room features, dining, study, and bedroom works.',
+    scope: ['BTO renovation', 'Whole-home carpentry', 'Living, study, and bedroom planning'],
     photos: [
-      {
-        label: 'Kitchen overview',
-        caption: 'Primary kitchen view with practical zones and a soft modern-natural palette.',
-        accent: '#E0C8AD',
-      },
-      {
-        label: 'Cabinetry detail',
-        caption: 'Carpentry details planned around storage, durability, and clean proportions.',
-        accent: '#CDAF8D',
-      },
-      {
-        label: 'Countertop and backsplash',
-        caption: 'Finish pairing selected for easy maintenance and visual softness.',
-        accent: '#ECD8C2',
-      },
-      {
-        label: 'Dining connection',
-        caption: 'A wider angle showing how the kitchen opens into the shared living zone.',
-        accent: '#B9936B',
-      },
+      projectPhoto(
+        'Main entrance',
+        'Entry storage and arrival details for a tidy everyday routine.',
+        '(RESIDENTIAL) PUNGGOL COVE 4RM BTO/Punggol Cove/Main Entrance.png',
+      ),
+      projectPhoto(
+        'Living room',
+        'A living room setup with feature storage and a clean home rhythm.',
+        '(RESIDENTIAL) PUNGGOL COVE 4RM BTO/Punggol Cove/Living Room.png',
+      ),
+      projectPhoto(
+        'Dining table',
+        'Dining placement and finishes connected to the wider living space.',
+        '(RESIDENTIAL) PUNGGOL COVE 4RM BTO/Punggol Cove/Dining Table.png',
+      ),
+      projectPhoto(
+        'Study room 1',
+        'Study carpentry and desk planning for focused work at home.',
+        '(RESIDENTIAL) PUNGGOL COVE 4RM BTO/Punggol Cove/Study Room 1.png',
+      ),
+      projectPhoto(
+        'Master bedroom',
+        'Bedroom works with storage and finish coordination.',
+        '(RESIDENTIAL) PUNGGOL COVE 4RM BTO/Punggol Cove/Master Bed Room.png',
+      ),
+      projectPhoto(
+        'Study room 2',
+        'A second study view showing the built-in workspace composition.',
+        '(RESIDENTIAL) PUNGGOL COVE 4RM BTO/Punggol Cove/Study Room 2.png',
+      ),
+      projectPhoto(
+        'Study room',
+        'Additional study room details for storage and working surfaces.',
+        '(RESIDENTIAL) PUNGGOL COVE 4RM BTO/Punggol Cove/Study Room.png',
+      ),
+      projectPhoto(
+        'TV console',
+        'Living room TV console work with integrated storage.',
+        '(RESIDENTIAL) PUNGGOL COVE 4RM BTO/Punggol Cove/TV Console.png',
+      ),
     ],
-  },
-  {
-    slug: 'ember-dining',
-    title: 'Ember Dining',
-    category: 'Dining',
-    location: 'Sentosa, Condo',
-    year: '2024',
-    style: 'Sculpted warm',
+  }),
+  createProject({
+    slug: 'loft-at-the-promenade',
+    title: 'Loft at the Promenade',
+    portfolioCategory: 'commercial',
+    category: 'Commercial',
+    location: 'The Promenade',
+    year: '2025',
+    style: 'Loft retail',
     accent: '#D2B089',
     summary:
-      'A dining zone with sculptural character, considered proportions, and ambient details for intimate hosting.',
-    scope: ['Dining area styling', 'Lighting direction', 'Furniture and material curation'],
+      'A commercial loft project focused on display presence, durable finishes, and clean customer-facing details.',
+    scope: ['Commercial renovation', 'Display and storage planning', 'On-site installation'],
     photos: [
-      {
-        label: 'Dining overview',
-        caption: 'Main dining view with warm tones, sculptural forms, and soft contrast.',
-        accent: '#D2B089',
-      },
-      {
-        label: 'Table setting',
-        caption: 'Styling details that bring texture and scale to the dining experience.',
-        accent: '#E1C4A0',
-      },
-      {
-        label: 'Lighting feature',
-        caption: 'Ambient lighting selected to frame the dining zone with a quiet glow.',
-        accent: '#B9895C',
-      },
-      {
-        label: 'Material close-up',
-        caption: 'A closer look at finishes and tones used across the dining composition.',
-        accent: '#E8D5BE',
-      },
+      projectPhoto(
+        'Commercial view 1',
+        'A completed commercial view showing display and circulation details.',
+        '(COMMERCIAL) LOFT AT THE PROMENADE/IMG-20250829-WA0017.jpg',
+      ),
+      projectPhoto(
+        'Commercial view 2',
+        'A supporting angle documenting the completed loft works.',
+        '(COMMERCIAL) LOFT AT THE PROMENADE/IMG-20250829-WA0016.jpg',
+      ),
+      projectPhoto(
+        'Commercial view 3',
+        'A closer view of the commercial carpentry and finish execution.',
+        '(COMMERCIAL) LOFT AT THE PROMENADE/IMG-20250829-WA0015.jpg',
+      ),
+      projectPhoto(
+        'Commercial view 4',
+        'Final view of the commercial interior works at handover.',
+        '(COMMERCIAL) LOFT AT THE PROMENADE/IMG-20250829-WA0014.jpg',
+      ),
     ],
-  },
-  {
-    slug: 'the-scholar-nook',
-    title: 'The Scholar Nook',
-    category: 'Study',
-    location: 'Novena, Condominium',
-    year: '2025',
-    style: 'Quiet luxe',
+  }),
+  createProject({
+    slug: 'raph-tcg-pop-store',
+    title: 'Raph TCG Pop Store',
+    portfolioCategory: 'commercial',
+    category: 'Commercial',
+    location: 'Singapore',
+    year: '2026',
+    style: 'Pop store display',
+    accent: '#B9895C',
+    summary:
+      'A pop store commercial fit-out with display cabinetry, retail flow, and customer-facing feature details.',
+    scope: ['Pop store fit-out', 'Display cabinet works', 'Retail installation coordination'],
+    photos: [
+      projectPhoto(
+        'Storefront view',
+        'A completed store view showing the retail display environment.',
+        '(COMMERCIAL) Raph TCG POP STORE/20260625_191849.jpg',
+      ),
+      projectPhoto(
+        'Display setup 1',
+        'Display and counter details arranged for retail operations.',
+        '(COMMERCIAL) Raph TCG POP STORE/20260625_125820.jpg',
+      ),
+      projectPhoto(
+        'Display setup 2',
+        'A second display angle showing storage and product presentation.',
+        '(COMMERCIAL) Raph TCG POP STORE/20260625_125816.jpg',
+      ),
+      projectPhoto(
+        'Retail view',
+        'A wider view of the completed pop store interior.',
+        '(COMMERCIAL) Raph TCG POP STORE/20260625_191851.jpg',
+      ),
+      projectPhoto(
+        'Feature display',
+        'Final display details captured after installation.',
+        '(COMMERCIAL) Raph TCG POP STORE/20260625_191914.jpg',
+      ),
+    ],
+  }),
+  createProject({
+    slug: 'jinx-card-pewkemart',
+    title: 'Jinx Card x Pewkemart',
+    portfolioCategory: 'commercial',
+    category: 'Commercial',
+    location: 'Singapore',
+    year: '2026',
+    style: 'Retail renovation',
     accent: '#C8A37C',
     summary:
-      'A compact study corner made more focused through tailored storage, warm lighting, and a quiet luxe palette.',
-    scope: ['Study nook planning', 'Built-in desk and shelving', 'Task lighting and styling'],
+      'A retail renovation with entrance storage, display cabinetry, counter works, and back-of-house storage.',
+    scope: ['Commercial renovation', 'Counter and display cabinetry', 'Front and back cabinet works'],
     photos: [
-      {
-        label: 'Study overview',
-        caption: 'A focused work area with storage, display, and a calm material language.',
-        accent: '#C8A37C',
-      },
-      {
-        label: 'Desk detail',
-        caption: 'Desk proportions and material details designed for everyday comfort.',
-        accent: '#D8BA98',
-      },
-      {
-        label: 'Open shelving',
-        caption: 'Display and storage elements arranged to feel refined without clutter.',
-        accent: '#B58B62',
-      },
-      {
-        label: 'Work corner styling',
-        caption: 'Finishing touches that soften the study zone and make it feel complete.',
-        accent: '#E2CCB6',
-      },
+      projectPhoto(
+        'Foyer',
+        'Retail foyer planning with a clear first impression and storage function.',
+        '(COMMERCIAL) Jinx Card x Pewkemart/Jinx Card Commercial Reno/Foyer.png',
+      ),
+      projectPhoto(
+        'Entrance cabinet',
+        'Entrance cabinet work designed for display and daily retail use.',
+        '(COMMERCIAL) Jinx Card x Pewkemart/Jinx Card Commercial Reno/Entrance Cabinet.png',
+      ),
+      projectPhoto(
+        'Display cabinet',
+        'Display cabinetry arranged around product visibility and access.',
+        '(COMMERCIAL) Jinx Card x Pewkemart/Jinx Card Commercial Reno/Display Cabinet.png',
+      ),
+      projectPhoto(
+        'Counter',
+        'Counter works supporting customer service and store operations.',
+        '(COMMERCIAL) Jinx Card x Pewkemart/Jinx Card Commercial Reno/Counter.png',
+      ),
+      projectPhoto(
+        'Back cabinet',
+        'Back cabinet planning for commercial storage and workflow.',
+        '(COMMERCIAL) Jinx Card x Pewkemart/Jinx Card Commercial Reno/Back Cabinet.png',
+      ),
+      projectPhoto(
+        'Back cabinet detail',
+        'A second back cabinet view showing layout and built-in detailing.',
+        '(COMMERCIAL) Jinx Card x Pewkemart/Jinx Card Commercial Reno/Back Cabinet 1.png',
+      ),
     ],
-  },
-  {
-    slug: 'sage-terrace',
-    title: 'Sage Terrace',
-    category: 'Family Lounge',
-    location: 'Tiong Bahru, HDB 4-Room',
-    year: '2023',
-    style: 'Layered comfort',
+  }),
+  createProject({
+    slug: 'custom-wardrobe-vanity-table',
+    title: 'Custom Wardrobe + Vanity Table',
+    portfolioCategory: 'smaller-projects',
+    category: 'Custom Wardrobe',
+    location: 'Singapore',
+    year: '2026',
+    style: 'Bedroom carpentry',
     accent: '#DCC7AE',
     summary:
-      'A relaxed family lounge with practical seating, softer colours, and approachable details for everyday gathering.',
-    scope: ['Family lounge furnishing', 'Storage and layout planning', 'Styling and soft furnishings'],
+      'A focused bedroom carpentry project combining wardrobe storage with a practical vanity table setup.',
+    scope: ['Custom wardrobe', 'Vanity table carpentry', 'Bedroom storage installation'],
     photos: [
-      {
-        label: 'Family lounge overview',
-        caption: 'A comfortable shared lounge designed for slow evenings and family time.',
-        accent: '#DCC7AE',
-      },
-      {
-        label: 'Sofa and textile detail',
-        caption: 'Layered fabrics and cushions selected for comfort and texture.',
-        accent: '#C7AD93',
-      },
-      {
-        label: 'Storage wall',
-        caption: 'Functional storage that supports family routines while staying visually calm.',
-        accent: '#E9D8C5',
-      },
-      {
-        label: 'Reading corner',
-        caption: 'A quieter nook within the lounge for reading, resting, and display.',
-        accent: '#BFA083',
-      },
+      projectPhoto(
+        'Wardrobe and vanity view',
+        'A completed view of the custom wardrobe and vanity table works.',
+        'Smaller Projects/CUSTOM WARDROBE + VANITY TABLE/20260615_173910.jpg',
+      ),
+      projectPhoto(
+        'Wardrobe detail 1',
+        'A closer look at the wardrobe finish and storage layout.',
+        'Smaller Projects/CUSTOM WARDROBE + VANITY TABLE/20260615_173857.jpg',
+      ),
+      projectPhoto(
+        'Wardrobe detail 2',
+        'Additional cabinetry details for the custom bedroom setup.',
+        'Smaller Projects/CUSTOM WARDROBE + VANITY TABLE/20260615_173923.jpg',
+      ),
+      projectPhoto(
+        'Vanity detail',
+        'Vanity table workmanship and surrounding storage details.',
+        'Smaller Projects/CUSTOM WARDROBE + VANITY TABLE/20260615_173944.jpg',
+      ),
+      projectPhoto(
+        'Completed angle',
+        'A final angle documenting the completed wardrobe and vanity works.',
+        'Smaller Projects/CUSTOM WARDROBE + VANITY TABLE/20260615_174025.jpg',
+      ),
     ],
-  },
+  }),
+  createProject({
+    slug: 'custom-tv-console-resale-condo',
+    title: 'Custom TV Console Resale Condo',
+    portfolioCategory: 'smaller-projects',
+    category: 'TV Console',
+    location: 'Singapore',
+    year: '2026',
+    style: 'Living room carpentry',
+    accent: '#C7AD93',
+    summary:
+      'A resale condo living room upgrade with a custom TV console and coordinated storage details.',
+    scope: ['Custom TV console', 'Living room carpentry', 'Resale condo upgrade'],
+    photos: [
+      projectPhoto(
+        'TV console view 1',
+        'A completed view of the custom TV console in the living space.',
+        'Smaller Projects/CUSTOM TV CONSOLE RESALE CONDO/20260423_134046.jpg',
+      ),
+      projectPhoto(
+        'TV console view 2',
+        'A second angle showing the console proportions and wall alignment.',
+        'Smaller Projects/CUSTOM TV CONSOLE RESALE CONDO/20260423_134132.jpg',
+      ),
+      projectPhoto(
+        'TV console detail',
+        'A closer detail of the console finish and installation.',
+        'Smaller Projects/CUSTOM TV CONSOLE RESALE CONDO/IMG-20260423-WA0003.jpg',
+      ),
+      projectPhoto(
+        'TV console final angle',
+        'A final angle documenting the completed resale condo console works.',
+        'Smaller Projects/CUSTOM TV CONSOLE RESALE CONDO/20260423_134141.jpg',
+      ),
+    ],
+  }),
+  createProject({
+    slug: 'display-cabinets',
+    title: 'Display Cabinets',
+    portfolioCategory: 'smaller-projects',
+    category: 'Display Cabinets',
+    location: 'Singapore',
+    year: '2026',
+    style: 'Display carpentry',
+    accent: '#E9D8C5',
+    summary:
+      'A focused display cabinet project for organized storage and presentation.',
+    scope: ['Display cabinet carpentry', 'Storage planning', 'On-site installation'],
+    photos: [
+      projectPhoto(
+        'Display cabinet view 1',
+        'A completed view of the display cabinet installation.',
+        'Smaller Projects/DISPLAY CABINETS/IMG-20260307-WA0041.jpg',
+      ),
+      projectPhoto(
+        'Display cabinet view 2',
+        'A supporting view showing the display cabinet proportions.',
+        'Smaller Projects/DISPLAY CABINETS/IMG-20260307-WA0042.jpg',
+      ),
+      projectPhoto(
+        'Display cabinet view 3',
+        'A closer view of the storage and display details.',
+        'Smaller Projects/DISPLAY CABINETS/IMG-20260307-WA0043.jpg',
+      ),
+      projectPhoto(
+        'Display cabinet view 4',
+        'Final display cabinet details after installation.',
+        'Smaller Projects/DISPLAY CABINETS/IMG-20260307-WA0045.jpg',
+      ),
+    ],
+  }),
+  createProject({
+    slug: 'custom-l-shape-wardrobe',
+    title: 'Custom L-Shape Wardrobe',
+    portfolioCategory: 'smaller-projects',
+    category: 'Custom Wardrobe',
+    location: 'Singapore',
+    year: '2026',
+    style: 'L-shape storage',
+    accent: '#BFA083',
+    summary:
+      'An L-shape wardrobe project planned around corner storage, access, and practical bedroom organization.',
+    scope: ['L-shape wardrobe', 'Bedroom storage planning', 'Custom carpentry installation'],
+    photos: [
+      projectPhoto(
+        'L-shape wardrobe view 1',
+        'A completed L-shape wardrobe view showing storage layout.',
+        'Smaller Projects/CUSTOM L-SHAPE WARDROBE/Screenshot_20260301_211108_WeChat.jpg',
+      ),
+      projectPhoto(
+        'L-shape wardrobe view 2',
+        'A supporting angle showing cabinetry proportions and access.',
+        'Smaller Projects/CUSTOM L-SHAPE WARDROBE/Screenshot_20260301_211058_WeChat.jpg',
+      ),
+      projectPhoto(
+        'L-shape wardrobe view 3',
+        'A detail view of the wardrobe layout and finish.',
+        'Smaller Projects/CUSTOM L-SHAPE WARDROBE/Screenshot_20260301_211115_WeChat.jpg',
+      ),
+      projectPhoto(
+        'L-shape wardrobe view 4',
+        'Final project angle of the custom L-shape wardrobe.',
+        'Smaller Projects/CUSTOM L-SHAPE WARDROBE/Screenshot_20260301_211149_WeChat.jpg',
+      ),
+    ],
+  }),
+  createProject({
+    slug: 'kids-loft-bed-with-slide',
+    title: 'Kids Loft Bed with Slide',
+    portfolioCategory: 'smaller-projects',
+    category: 'Kids Loft Bed',
+    location: 'Singapore',
+    year: '2026',
+    style: 'Playful carpentry',
+    accent: '#E2CCB6',
+    summary:
+      'A custom kids loft bed with slide designed around play, sleep, and compact room function.',
+    scope: ['Kids loft bed', 'Slide feature', 'Custom bedroom carpentry'],
+    photos: [
+      projectPhoto(
+        'Loft bed view 1',
+        'A completed view of the custom kids loft bed and slide.',
+        'Smaller Projects/KIDS LOFT BED WITH SLIDE/IMG-20260627-WA0050.jpg',
+      ),
+      projectPhoto(
+        'Loft bed view 2',
+        'A second angle showing the loft bed structure and play feature.',
+        'Smaller Projects/KIDS LOFT BED WITH SLIDE/IMG-20260627-WA0051.jpg',
+      ),
+      projectPhoto(
+        'Loft bed view 3',
+        'A final view documenting the custom kids bedroom installation.',
+        'Smaller Projects/KIDS LOFT BED WITH SLIDE/IMG-20260627-WA0052.jpg',
+      ),
+    ],
+  }),
+  createProject({
+    slug: 'walk-in-cabinet-newtown',
+    title: 'Walk-In Cabinet @ Newtown',
+    portfolioCategory: 'smaller-projects',
+    category: 'Walk-In Cabinet',
+    location: 'Newtown',
+    year: '2026',
+    style: 'Walk-in storage',
+    accent: '#BFA384',
+    summary:
+      'A walk-in cabinet project with structured storage, accessible compartments, and clean carpentry lines.',
+    scope: ['Walk-in cabinet', 'Storage compartment planning', 'Custom cabinet installation'],
+    photos: [
+      projectPhoto(
+        'Walk-in cabinet view 1',
+        'A completed view of the walk-in cabinet storage works.',
+        'Smaller Projects/WALK IN CABINET @ NEWTOWN/NEWTOWN CABINET/3.jpeg',
+      ),
+      projectPhoto(
+        'Walk-in cabinet view 2',
+        'A second view showing the cabinet layout and compartments.',
+        'Smaller Projects/WALK IN CABINET @ NEWTOWN/NEWTOWN CABINET/2.jpeg',
+      ),
+      projectPhoto(
+        'Walk-in cabinet view 3',
+        'Final cabinet detail documenting the completed installation.',
+        'Smaller Projects/WALK IN CABINET @ NEWTOWN/NEWTOWN CABINET/1.jpeg',
+      ),
+    ],
+  }),
 ]
 
 export const reviews: Review[] = [
@@ -432,7 +785,11 @@ export const projectJourneyStages: ProjectJourneyStage[] = [
     title: 'Understand Your Needs',
     description:
       'We begin by studying your home, lifestyle, and design direction so every next step is grounded in what matters to you.',
-    media: ['Site photos', 'Floor plan', 'Design proposals'],
+    media: [
+      { label: 'Site photos', image: understandingNeeds1 },
+      { label: 'Floor plan', image: understandingNeeds2 },
+      { label: 'Design proposals', image: understandingNeeds3 },
+    ],
     bullets: [
       'Thoughtful space planning that shapes a practical, well-balanced layout.',
       'On-site consultation to observe the space, measurements, and daily flow in person.',
@@ -445,7 +802,10 @@ export const projectJourneyStages: ProjectJourneyStage[] = [
     title: 'Visualisation',
     description:
       'Your concept is translated into visuals, finishes, and material direction before the work moves forward.',
-    media: ['Render photo'],
+    media: [
+      { label: 'Render photo 1', image: visualisation1 },
+      { label: 'Render photo 2', image: visualisation2 },
+    ],
     note:
       'This visualisation stage begins once you decide to engage Castorea, allowing the team to develop your design with full focus and care.',
     bullets: [
@@ -458,7 +818,7 @@ export const projectJourneyStages: ProjectJourneyStage[] = [
     title: 'Execution and Implementation',
     description:
       'Once the design direction is approved, we coordinate the build, updates, and finishing details through handover.',
-    media: ['Completion photo'],
+    media: [{ label: 'Completion photo', image: completionPhoto }],
     bullets: [
       'A coordinated project schedule designed to keep work progressing within the agreed timeline.',
       'Consistent workflow updates so you stay informed as each phase is completed.',
