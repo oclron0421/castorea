@@ -3,7 +3,7 @@ import CtaSection from '../components/CtaSection'
 import ProcessSteps from '../components/ProcessSteps'
 import SectionHeader from '../components/SectionHeader'
 import ServiceGrid from '../components/ServiceGrid'
-import { packages, processSteps, services } from '../data/siteData'
+import {  processSteps, services } from '../data/siteData'
 
 const Services = () => {
   return (

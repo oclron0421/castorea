@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import logo from '../assets/castorea_logo.svg'
-import { contact, navLinks, services, socialLinks } from '../data/siteData'
+import { contact, navLinks,  socialLinks } from '../data/siteData'
 
 const Footer = () => {
   const availableSocialLinks = socialLinks.filter((link) => link.href && link.href !== '#')
