@@ -50,16 +50,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-4">
-            <p className="eyebrow text-accent">Services</p>
-            <div className="flex flex-col gap-3">
-              {services.slice(0, 3).map((service) => (
-                <Link key={service.title} to="/services" className="footer-link">
-                  {service.title}
-                </Link>
-              ))}
-            </div>
-          </div>
+          
 
           <div className="flex flex-col gap-4">
             <p className="eyebrow text-accent">Contact</p>

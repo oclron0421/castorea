@@ -34,7 +34,7 @@ const Portfolio = () => {
                 title={
                   <>
                     {portfolioCategory.title}
-                    <span className="text-accent"> portfolio</span>
+                    
                   </>
                 }
                 description={portfolioCategory.description}

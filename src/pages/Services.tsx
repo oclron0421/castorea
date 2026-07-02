@@ -41,40 +41,7 @@ const Services = () => {
         </div>
       </section>
 
-      <section className="section-pad">
-        <div className="shell flex flex-col gap-10">
-          <SectionHeader
-            eyebrow="Packages"
-            title={
-              <>
-                Start with a
-                <span className="text-accent"> signature package</span>
-              </>
-            }
-            description="Select a package, then customize the finish level and scope."
-          />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {packages.map((pkg) => (
-              <article
-                key={pkg.title}
-                className="rounded-3xl border border-subtle bg-surface p-6 sm:p-7 shadow-soft flex flex-col gap-4"
-              >
-                <h3 className="text-xl font-semibold text-ink">{pkg.title}</h3>
-                <p className="text-sm text-muted leading-relaxed">{pkg.description}</p>
-                <p className="text-sm font-semibold text-accent">{pkg.priceNote}</p>
-                <ul className="flex flex-col gap-2 text-sm text-muted">
-                  {pkg.items.map((item) => (
-                    <li key={item} className="flex items-start gap-2">
-                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-ink" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       <section className="section-pad bg-surface-alt">
         <div className="shell flex flex-col gap-10">

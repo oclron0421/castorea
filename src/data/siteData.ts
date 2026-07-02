@@ -218,7 +218,7 @@ export const services: Service[] = [
     accent: '#D1B79A',
   },
   {
-    title: 'Custom Carpentry',
+    title: 'Direct Carpentry',
     summary: 'Built-ins and storage tailored to your lifestyle.',
     bullets: ['Material selection', 'Production oversight', 'On-site install'],
     accent: '#E0C7A9',
@@ -724,42 +724,42 @@ export const reviews: Review[] = [
     name: 'Sarah T.',
     project: 'Bishan, HDB 4-Room',
     quote:
-      'Castorea understood our style immediately and turned it into a space we love coming home to.',
+      'Castorea understood what we wanted for our home very quickly. The final space feels warm, practical, and very easy for daily living.',
     stars: 5,
   },
   {
     name: 'Marcus L.',
     project: 'Clementi, Condominium',
     quote:
-      'The team was organized, warm, and detail-driven. Every piece felt intentional.',
+      'The team was patient and organised throughout the reno. Updates were clear, and we did not need to keep chasing for progress.',
     stars: 5,
   },
   {
     name: 'Priya R.',
     project: 'Bukit Timah, Landed',
     quote:
-      'They balanced comfort and elegance perfectly. Our guests always ask who styled the home.',
+      'They managed to keep the design elegant without making it feel too showroom-like. Guests always ask who did up the place.',
     stars: 5,
   },
   {
     name: 'Jia H.',
     project: 'Serangoon, HDB 5-Room',
     quote:
-      'The process was smooth and the final styling felt like us, just elevated.',
+      'The whole process was smooth and quite fuss-free. The home still feels like us, just more polished and better planned.',
     stars: 5,
   },
   {
     name: 'Hannah C.',
     project: 'Novena, Condominium',
     quote:
-      'A thoughtful team that delivered beyond what we imagined. Worth every bit.',
+      'They gave honest suggestions and explained the options clearly. We felt assured at every stage, and the end result was worth it.',
     stars: 5,
   },
   {
     name: 'Kelvin W.',
     project: 'Pasir Ris, HDB 4-Room',
     quote:
-      'We appreciated the transparent timeline and the beautiful final result.',
+      'We appreciated the transparent timeline and steady coordination. The workmanship came out neat, and the final handover was very thorough.',
     stars: 5,
   },
 ]
