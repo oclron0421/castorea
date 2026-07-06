@@ -17,6 +17,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -320,5 +321,60 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .shell {
+    width: min(100% - 1.5rem, 1120px);
+  }
+
+  .section-pad,
+  .section-pad-sm {
+    padding-block: 3rem;
+  }
+
+  .section-pad-lg {
+    padding-block: 3rem 3.5rem;
+  }
+
+  .display-hero {
+    font-size: 2.45rem;
+    line-height: 1;
+  }
+
+  .display {
+    font-size: 2rem;
+    line-height: 1.08;
+  }
+
+  .body-lg {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .eyebrow,
+  .nav-link,
+  :where(.pill) {
+    letter-spacing: 0.18em;
+  }
+
+  .btn-primary,
+  .btn-outline,
+  .btn-light,
+  .btn-outline-light {
+    width: 100%;
+    min-height: 3rem;
+    padding-inline: 1rem;
+    text-align: center;
+    letter-spacing: 0.16em;
+  }
+
+  :where(.pill) {
+    padding-inline: 0.75rem;
+  }
+
+  .shadow-soft {
+    box-shadow: 0 16px 36px rgba(19, 16, 14, 0.1);
   }
 }

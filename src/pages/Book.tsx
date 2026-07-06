@@ -133,7 +133,7 @@ const Book = () => {
                     name="phone"
                     required
                     className="input-field"
-                    placeholder="+65 9123 4567"
+                    placeholder="+65 8176 0754"
                   />
                 </label>
                 <label className="flex flex-col gap-2 text-sm text-ink">
