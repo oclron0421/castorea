@@ -30,10 +30,11 @@ const Home = () => {
         <div className="shell relative flex flex-col gap-10">
           <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] items-center">
             <div className="flex flex-col gap-6">
-              <p className="eyebrow text-base text-accent">Singapore home furnishing and interior design studio</p>
+              <p className="eyebrow text-sm text-accent">Singapore home renovation and interior design studio</p>
               <h1 className="display-hero font-serif text-ink">
-                Furnishing homes,
-                <span className="text-accent"> designing living.</span>
+                Home Renovation,
+                Home Cabinetry,
+                <span className="text-accent"> Interior Design.</span>
               </h1>
               <p className="body-lg text-muted max-w-xl">
                 Castorea creates warm, layered interiors with a boutique, high touch approach.

@@ -173,6 +173,7 @@ export const portfolioCategories: PortfolioCategory[] = [
 export const navLinks: NavLink[] = [
   { label: 'Home', path: '/' },
   { label: 'Portfolio', path: '/portfolio' },
+  { label: 'Cabinetry', path: '/cabinetry' },
   { label: 'About', path: '/about' },
   { label: 'Reviews', path: '/reviews' },
 ]
@@ -200,9 +201,9 @@ export const stats: Stat[] = [
 
 export const services: Service[] = [
   {
-    title: 'Full Home Furnishing',
+    title: 'Premium Cabinetry',
     summary: 'End-to-end furnishing from concept to styling day.',
-    bullets: ['Space planning', 'Sourcing and procurement', 'Styling and install'],
+    bullets: ['Premium material', 'Precision finish', 'Superior Craftsmanship'],
     accent: '#E4D2BC',
   },
   {
@@ -212,7 +213,7 @@ export const services: Service[] = [
     accent: '#D9C1A6',
   },
   {
-    title: 'Direct renovation',
+    title: 'Home Renovation',
     summary: 'Focussed on quality workmanship, transparency and reliable delivery',
     bullets: ['Direct contractor', 'Factory pricing', 'No middleman'],
     accent: '#D1B79A',
