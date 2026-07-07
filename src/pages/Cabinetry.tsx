@@ -14,6 +14,7 @@ import {
 import type { LucideIcon } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import SectionHeader from '../components/SectionHeader'
+import cabinetryIntro from '../assets/cabinetryIntro.jpg'
 import { contact } from '../data/siteData'
 
 type IconCard = {
@@ -25,17 +26,17 @@ type IconCard = {
 
 const materials = [
   {
-    badge: 'E0',
-    title: 'E0 boards',
+
+    title: 'E0 emission level',
     description: 'Zero formaldehyde cabinetry panels selected for healthier, long-lasting interiors.',
   },
   {
-    badge: '9P',
-    title: '9-ply plywood',
+    
+    title: 'Solid Woodboard',
     description: 'Superb strength and stability for built-ins that need to hold up to daily use.',
   },
   {
-    badge: 'VL',
+    
     title: 'Premium veneer laminate',
     description: 'A refined finishing layer with depth, texture, and a polished furniture-grade look.',
   },
@@ -140,15 +141,12 @@ const Cabinetry = () => {
             </Link>
           </div>
 
-          <div className="rounded-3xl border border-subtle bg-surface p-6 sm:p-8 shadow-soft">
-            <p className="eyebrow text-accent">Built around you</p>
-            <p className="mt-5 text-sm sm:text-base leading-relaxed text-muted">
-              At Castorea, we believe every cabinet should be more than just storage - it should be a masterpiece.
-              Whether it is a single custom cabinet or a complete home renovation, we deliver the same dedication,
-              precision, and premium craftsmanship. Using only quality materials and a thoughtful planning process,
-              we design every detail around your lifestyle and space. Your needs always come first, ensuring every
-              project is functional, timeless, and built to last.
-            </p>
+          <div className="overflow-hidden rounded-3xl border border-subtle bg-surface shadow-soft">
+            <img
+              src={cabinetryIntro}
+              alt="Custom home cabinetry by Castorea"
+              className="h-full min-h-96 w-full object-cover"
+            />
           </div>
         </div>
       </section>
@@ -167,11 +165,8 @@ const Cabinetry = () => {
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {materials.map((material) => (
-              <article key={material.title} className="rounded-3xl border border-subtle bg-bg p-6 sm:p-7 shadow-soft">
-                <span className="h-10 w-10 rounded-full bg-ink text-bg text-xs font-semibold flex items-center justify-center">
-                  {material.badge}
-                </span>
-                <h3 className="mt-5 text-lg font-semibold text-ink">{material.title}</h3>
+              <article key={material.title} className="rounded-3xl border border-subtle bg-bg p-6 sm:p-7 shadow-soft text-center flex min-h-48 flex-col items-center justify-center">
+                <h3 className="text-lg font-semibold text-ink">{material.title}</h3>
                 <p className="mt-3 text-sm text-muted leading-relaxed">{material.description}</p>
               </article>
             ))}

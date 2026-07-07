@@ -185,7 +185,7 @@ export const socialLinks: SocialLink[] = [
 ]
 
 export const contact = {
-  email: 'enquiries@castorea.sg',
+  email: 'enquires@castorea.sg',
   phone: '+65 8176 0754',
   location: 'Singapore',
   whatsapp: '',

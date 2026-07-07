@@ -95,6 +95,7 @@ const Book = () => {
               className="mt-8 flex flex-col gap-5"
             >
               <input type="hidden" name="access_key" value={web3FormsAccessKey} />
+              <input type="hidden" name="to_email" value={contact.email} />
               <input
                 type="text"
                 name="_gotcha"
@@ -158,6 +159,7 @@ const Book = () => {
                     <option value="HDB-resale-reno">HDB Resale Renovation</option>
                     <option value="condo-reno">Condominium Renovation</option>
                     <option value="BTO-reno">BTO Renovation</option>
+                    <option value="home-cabinetry">Home Cabinetry</option>
                     <option value="contractor">Contractor Services only</option>
                     <option value="commerical">Commercial</option>
                     <option value="landed-reno">Landed Property Renovation</option>
