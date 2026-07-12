@@ -180,15 +180,16 @@ export const navLinks: NavLink[] = [
 ]
 
 export const socialLinks: SocialLink[] = [
-  { label: 'Instagram', short: 'IG', href: '' },
+  { label: 'Instagram', short: 'IG', href: 'https://www.instagram.com/castorea.sg/' },
   { label: 'TikTok', short: 'TK', href: '' },
-  { label: 'Carousell', short: 'CR', href: '' },
+  { label: 'Carousell', short: 'CR', href: 'https://www.carousell.sg/u/castorea.sg/?source=me_page' },
+  { label: 'Facebook', short: 'FB', href: 'https://www.facebook.com/profile.php?id=61591302164994' },
 ]
 
 export const contact = {
   email: 'enquires@castorea.sg',
   phone: '+65 8176 0754',
-  location: 'Singapore',
+  location: '30 Kaki Bukit Road 3, #03-05, Empire Technocentre, Singapore 417819',
   whatsapp: '',
 }
 
@@ -781,41 +782,6 @@ export const projects: Project[] = [
         'TV cabinet view 9',
         'Final TV cabinet angle documenting the completed carpentry.',
         'Cabinetry Projects Upload/TV Cabinet/Screenshot_20251110_155014.jpg',
-      ),
-    ],
-  }),
-  createProject({
-    slug: 'custom-l-shape-wardrobe',
-    title: 'Custom L-Shape Wardrobe',
-    portfolioCategory: 'smaller-projects',
-    category: 'Premium Cabinetry',
-    location: 'Singapore',
-    year: '2026',
-    style: 'L-shape wardrobe',
-    accent: '#BFA083',
-    summary:
-      'An L-shape wardrobe project planned around corner storage, access, and practical bedroom organization.',
-    scope: ['L-shape wardrobe', 'Bedroom storage planning', 'Custom carpentry installation'],
-    photos: [
-      projectPhoto(
-        'L-shape wardrobe view 1',
-        'A completed L-shape wardrobe view showing storage layout.',
-        'Smaller Projects/CUSTOM L-SHAPE WARDROBE/Screenshot_20260301_211108_WeChat.jpg',
-      ),
-      projectPhoto(
-        'L-shape wardrobe view 2',
-        'A supporting angle showing cabinetry proportions and access.',
-        'Smaller Projects/CUSTOM L-SHAPE WARDROBE/Screenshot_20260301_211058_WeChat.jpg',
-      ),
-      projectPhoto(
-        'L-shape wardrobe view 3',
-        'A detail view of the wardrobe layout and finish.',
-        'Smaller Projects/CUSTOM L-SHAPE WARDROBE/Screenshot_20260301_211115_WeChat.jpg',
-      ),
-      projectPhoto(
-        'L-shape wardrobe view 4',
-        'Final project angle of the custom L-shape wardrobe.',
-        'Smaller Projects/CUSTOM L-SHAPE WARDROBE/Screenshot_20260301_211149_WeChat.jpg',
       ),
     ],
   }),

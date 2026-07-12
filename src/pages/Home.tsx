@@ -15,10 +15,15 @@ import {
   projects,
   reviews,
   services,
+  socialLinks,
   stats,
 } from '../data/siteData'
 
 const Home = () => {
+  const featuredSocialLinks = socialLinks.filter(
+    (link) => ['Instagram', 'Carousell', 'Facebook'].includes(link.label) && link.href,
+  )
+
   return (
     <>
       <section className="section-pad-lg relative overflow-hidden">
@@ -50,9 +55,11 @@ const Home = () => {
                 </Link>
               </div>
               <div className="flex flex-wrap gap-3 text-[10px] uppercase tracking-[0.3em] text-muted">
-                <span className="pill">Instagram</span>
-                <span className="pill">TikTok</span>
-                <span className="pill">Carousell</span>
+                {featuredSocialLinks.map((link) => (
+                  <a key={link.label} href={link.href} target="_blank" rel="noreferrer" className="pill">
+                    {link.label}
+                  </a>
+                ))}
               </div>
             </div>
 

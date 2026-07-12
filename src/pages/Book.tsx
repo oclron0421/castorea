@@ -271,6 +271,7 @@ const Book = () => {
                     WhatsApp us
                   </a>
                 )}
+                <p>{contact.location}</p>
               </div>
             </div>
           </aside>
